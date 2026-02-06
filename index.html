@@ -358,6 +358,23 @@
                 background-color: #d68910;
             }
 
+            /* Category Badge */
+            .category-badge {
+                display: inline-block;
+                padding: 3px 10px;
+                border-radius: 15px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                margin-left: 8px;
+                background-color: var(--light-color);
+                color: var(--dark-color);
+            }
+
+            .dark-theme .category-badge {
+                background-color: #34495e;
+                color: var(--light-color);
+            }
+
             /* List Container */
             .list-container {
                 background-color: white;
@@ -399,6 +416,10 @@
 
             .list-item-description {
                 font-weight: 600;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
             .list-item-amount {
@@ -445,6 +466,81 @@
 
             .delete-btn:hover {
                 color: var(--danger-color);
+            }
+
+            /* Category Select Group */
+            .category-group {
+                display: flex;
+                gap: 10px;
+                align-items: flex-end;
+            }
+
+            .category-group select {
+                flex: 3;
+            }
+
+            .category-group input {
+                flex: 2;
+            }
+
+            /* Category Management */
+            .category-management {
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #ddd;
+            }
+
+            .dark-theme .category-management {
+                border-top-color: #4a5f7a;
+            }
+
+            .category-lists {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .category-card {
+                background-color: white;
+                border-radius: var(--border-radius);
+                padding: 15px;
+                box-shadow: var(--box-shadow);
+            }
+
+            .dark-theme .category-card {
+                background-color: #152947;
+            }
+
+            .category-card h4 {
+                margin-bottom: 10px;
+                color: var(--primary-color);
+                padding-bottom: 5px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .dark-theme .category-card h4 {
+                color: var(--light-color);
+                border-bottom-color: #4a5f7a;
+            }
+
+            .category-list {
+                list-style-type: none;
+            }
+
+            .category-list li {
+                padding: 5px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .delete-category-btn {
+                background: none;
+                border: none;
+                color: var(--danger-color);
+                cursor: pointer;
+                font-size: 0.8rem;
             }
 
             /* Data Management */
@@ -496,6 +592,11 @@
                 .data-buttons .btn {
                     width: 100%;
                 }
+
+                .category-group {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
             }
 
             @media (max-width: 480px) {
@@ -542,6 +643,7 @@
                 <div class="tab active" data-tab="dashboard">Dashboard</div>
                 <div class="tab" data-tab="transactions">Monthly Transactions</div>
                 <div class="tab" data-tab="wealth">Wealth</div>
+                <div class="tab" data-tab="categories">Categories</div>
                 <div class="tab" data-tab="data">Data Management</div>
             </div>
 
@@ -611,6 +713,21 @@
                                 />
                             </div>
 
+                            <div class="form-group">
+                                <label for="incomeCategory">Category</label>
+                                <div class="category-group">
+                                    <select id="incomeCategorySelect">
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                    <input
+                                        type="text"
+                                        id="incomeCategoryCustom"
+                                        placeholder="Custom category"
+                                        style="display: none"
+                                    />
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus-circle"></i> Add Income
                             </button>
@@ -641,6 +758,21 @@
                                     placeholder="0.00"
                                     required
                                 />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expenseCategory">Category</label>
+                                <div class="category-group">
+                                    <select id="expenseCategorySelect">
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                    <input
+                                        type="text"
+                                        id="expenseCategoryCustom"
+                                        placeholder="Custom category"
+                                        style="display: none"
+                                    />
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">
@@ -701,6 +833,21 @@
                                 <input type="number" id="assetAmount" min="0" step="0.01" placeholder="0.00" required />
                             </div>
 
+                            <div class="form-group">
+                                <label for="assetCategory">Category</label>
+                                <div class="category-group">
+                                    <select id="assetCategorySelect">
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                    <input
+                                        type="text"
+                                        id="assetCategoryCustom"
+                                        placeholder="Custom category"
+                                        style="display: none"
+                                    />
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus-circle"></i> Add Asset
                             </button>
@@ -731,6 +878,21 @@
                                     placeholder="0.00"
                                     required
                                 />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="liabilityCategory">Category</label>
+                                <div class="category-group">
+                                    <select id="liabilityCategorySelect">
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                    <input
+                                        type="text"
+                                        id="liabilityCategoryCustom"
+                                        placeholder="Custom category"
+                                        style="display: none"
+                                    />
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">
@@ -767,6 +929,43 @@
                 </div>
             </div>
 
+            <!-- Categories Tab -->
+            <div id="categories" class="tab-content">
+                <h2>Category Management</h2>
+
+                <div class="card">
+                    <h3>Manage Categories</h3>
+                    <p>Add, edit, or delete categories for income, expenses, assets, and liabilities.</p>
+
+                    <div class="category-management">
+                        <h4>Add New Category</h4>
+                        <div class="form-group">
+                            <label for="newCategoryType">Type</label>
+                            <select id="newCategoryType">
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                                <option value="asset">Asset</option>
+                                <option value="liability">Liability</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newCategoryName">Category Name</label>
+                            <input type="text" id="newCategoryName" placeholder="Enter category name" />
+                        </div>
+                        <button id="addCategoryBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Category
+                        </button>
+                    </div>
+
+                    <div class="category-management">
+                        <h4>Current Categories</h4>
+                        <div class="category-lists" id="categoryLists">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Data Management Tab -->
             <div id="data" class="tab-content">
                 <h2>Data Management</h2>
@@ -777,7 +976,7 @@
 
                     <div class="data-management">
                         <h4>Export Data</h4>
-                        <p>Download a JSON file containing all your financial data.</p>
+                        <p>Download a JSON file containing all your financial data and categories.</p>
                         <div class="data-buttons">
                             <button id="exportData" class="btn btn-success">
                                 <i class="fas fa-download"></i> Export Data
@@ -816,6 +1015,12 @@
                 expenses: [],
                 assets: [],
                 liabilities: [],
+                categories: {
+                    income: ["Salary", "Freelance", "Investment", "Gift", "Business", "Other"],
+                    expense: ["Housing", "Food", "Transportation", "Utilities", "Entertainment", "Healthcare", "Other"],
+                    asset: ["Cash", "Savings Account", "Investment", "Real Estate", "Vehicle", "Other"],
+                    liability: ["Mortgage", "Car Loan", "Credit Card", "Student Loan", "Personal Loan", "Other"],
+                },
                 editingId: null,
                 editingType: null,
             };
@@ -831,6 +1036,22 @@
             const assetForm = document.getElementById("assetForm");
             const liabilityForm = document.getElementById("liabilityForm");
 
+            // Category select elements
+            const incomeCategorySelect = document.getElementById("incomeCategorySelect");
+            const incomeCategoryCustom = document.getElementById("incomeCategoryCustom");
+            const expenseCategorySelect = document.getElementById("expenseCategorySelect");
+            const expenseCategoryCustom = document.getElementById("expenseCategoryCustom");
+            const assetCategorySelect = document.getElementById("assetCategorySelect");
+            const assetCategoryCustom = document.getElementById("assetCategoryCustom");
+            const liabilityCategorySelect = document.getElementById("liabilityCategorySelect");
+            const liabilityCategoryCustom = document.getElementById("liabilityCategoryCustom");
+
+            // Category management
+            const newCategoryType = document.getElementById("newCategoryType");
+            const newCategoryName = document.getElementById("newCategoryName");
+            const addCategoryBtn = document.getElementById("addCategoryBtn");
+            const categoryLists = document.getElementById("categoryLists");
+
             // Data management
             const exportButton = document.getElementById("exportData");
             const importButton = document.getElementById("importData");
@@ -841,6 +1062,12 @@
             document.addEventListener("DOMContentLoaded", () => {
                 // Load saved data from localStorage
                 loadData();
+
+                // Populate category selectors
+                populateCategorySelectors();
+
+                // Render category management
+                renderCategoryManagement();
 
                 // Set up event listeners
                 setupEventListeners();
@@ -855,6 +1082,39 @@
                     themeToggle.checked = true;
                 }
             });
+
+            // Populate category selectors
+            function populateCategorySelectors() {
+                // Income categories
+                populateCategorySelector(incomeCategorySelect, "income", "Custom...");
+
+                // Expense categories
+                populateCategorySelector(expenseCategorySelect, "expense", "Custom...");
+
+                // Asset categories
+                populateCategorySelector(assetCategorySelect, "asset", "Custom...");
+
+                // Liability categories
+                populateCategorySelector(liabilityCategorySelect, "liability", "Custom...");
+            }
+
+            function populateCategorySelector(selectElement, type, customLabel) {
+                selectElement.innerHTML = "";
+
+                // Add default categories
+                state.categories[type].forEach((category) => {
+                    const option = document.createElement("option");
+                    option.value = category;
+                    option.textContent = category;
+                    selectElement.appendChild(option);
+                });
+
+                // Add "Custom" option
+                const customOption = document.createElement("option");
+                customOption.value = "custom";
+                customOption.textContent = customLabel;
+                selectElement.appendChild(customOption);
+            }
 
             // Set up event listeners
             function setupEventListeners() {
@@ -875,11 +1135,35 @@
                 assetForm.addEventListener("submit", handleAssetSubmit);
                 liabilityForm.addEventListener("submit", handleLiabilitySubmit);
 
+                // Category select change handlers
+                incomeCategorySelect.addEventListener("change", handleCategorySelectChange);
+                expenseCategorySelect.addEventListener("change", handleCategorySelectChange);
+                assetCategorySelect.addEventListener("change", handleCategorySelectChange);
+                liabilityCategorySelect.addEventListener("change", handleCategorySelectChange);
+
+                // Category management
+                addCategoryBtn.addEventListener("click", handleAddCategory);
+
                 // Data management
                 exportButton.addEventListener("click", exportData);
                 importButton.addEventListener("click", () => importFile.click());
                 importFile.addEventListener("change", importData);
                 clearButton.addEventListener("click", clearData);
+            }
+
+            // Handle category select change
+            function handleCategorySelectChange(e) {
+                const select = e.target;
+                const customInputId = select.id.replace("Select", "Custom");
+                const customInput = document.getElementById(customInputId);
+
+                if (select.value === "custom") {
+                    customInput.style.display = "block";
+                    customInput.required = true;
+                } else {
+                    customInput.style.display = "none";
+                    customInput.required = false;
+                }
             }
 
             // Theme toggle function
@@ -916,6 +1200,17 @@
 
                 const description = document.getElementById("incomeDescription").value.trim();
                 const amount = parseFloat(document.getElementById("incomeAmount").value);
+                let category = incomeCategorySelect.value;
+
+                if (category === "custom") {
+                    category = incomeCategoryCustom.value.trim();
+                    if (!category) {
+                        alert("Please enter a custom category");
+                        return;
+                    }
+                    // Add custom category if it doesn't exist
+                    addCustomCategory("income", category);
+                }
 
                 if (!description || isNaN(amount) || amount <= 0) {
                     alert("Please enter a valid description and amount");
@@ -926,6 +1221,7 @@
                     id: Date.now().toString(),
                     description,
                     amount,
+                    category,
                     date: new Date().toISOString().split("T")[0],
                 };
 
@@ -933,7 +1229,7 @@
                     // Update existing income
                     const index = state.income.findIndex((item) => item.id === state.editingId);
                     if (index !== -1) {
-                        state.income[index] = { ...state.income[index], description, amount };
+                        state.income[index] = { ...state.income[index], description, amount, category };
                     }
                     state.editingId = null;
                     state.editingType = null;
@@ -948,10 +1244,13 @@
 
                 // Reset form
                 incomeForm.reset();
+                incomeCategoryCustom.style.display = "none";
+                incomeCategoryCustom.required = false;
 
                 // Save and render
                 saveData();
                 renderAll();
+                populateCategorySelectors();
             }
 
             // Handle expense form submission
@@ -960,6 +1259,17 @@
 
                 const description = document.getElementById("expenseDescription").value.trim();
                 const amount = parseFloat(document.getElementById("expenseAmount").value);
+                let category = expenseCategorySelect.value;
+
+                if (category === "custom") {
+                    category = expenseCategoryCustom.value.trim();
+                    if (!category) {
+                        alert("Please enter a custom category");
+                        return;
+                    }
+                    // Add custom category if it doesn't exist
+                    addCustomCategory("expense", category);
+                }
 
                 if (!description || isNaN(amount) || amount <= 0) {
                     alert("Please enter a valid description and amount");
@@ -970,6 +1280,7 @@
                     id: Date.now().toString(),
                     description,
                     amount,
+                    category,
                     date: new Date().toISOString().split("T")[0],
                 };
 
@@ -977,7 +1288,7 @@
                     // Update existing expense
                     const index = state.expenses.findIndex((item) => item.id === state.editingId);
                     if (index !== -1) {
-                        state.expenses[index] = { ...state.expenses[index], description, amount };
+                        state.expenses[index] = { ...state.expenses[index], description, amount, category };
                     }
                     state.editingId = null;
                     state.editingType = null;
@@ -992,10 +1303,13 @@
 
                 // Reset form
                 expenseForm.reset();
+                expenseCategoryCustom.style.display = "none";
+                expenseCategoryCustom.required = false;
 
                 // Save and render
                 saveData();
                 renderAll();
+                populateCategorySelectors();
             }
 
             // Handle asset form submission
@@ -1004,6 +1318,17 @@
 
                 const description = document.getElementById("assetDescription").value.trim();
                 const amount = parseFloat(document.getElementById("assetAmount").value);
+                let category = assetCategorySelect.value;
+
+                if (category === "custom") {
+                    category = assetCategoryCustom.value.trim();
+                    if (!category) {
+                        alert("Please enter a custom category");
+                        return;
+                    }
+                    // Add custom category if it doesn't exist
+                    addCustomCategory("asset", category);
+                }
 
                 if (!description || isNaN(amount) || amount <= 0) {
                     alert("Please enter a valid description and amount");
@@ -1014,13 +1339,14 @@
                     id: Date.now().toString(),
                     description,
                     amount,
+                    category,
                 };
 
                 if (state.editingType === "asset" && state.editingId) {
                     // Update existing asset
                     const index = state.assets.findIndex((item) => item.id === state.editingId);
                     if (index !== -1) {
-                        state.assets[index] = { ...state.assets[index], description, amount };
+                        state.assets[index] = { ...state.assets[index], description, amount, category };
                     }
                     state.editingId = null;
                     state.editingType = null;
@@ -1035,10 +1361,13 @@
 
                 // Reset form
                 assetForm.reset();
+                assetCategoryCustom.style.display = "none";
+                assetCategoryCustom.required = false;
 
                 // Save and render
                 saveData();
                 renderAll();
+                populateCategorySelectors();
             }
 
             // Handle liability form submission
@@ -1047,6 +1376,17 @@
 
                 const description = document.getElementById("liabilityDescription").value.trim();
                 const amount = parseFloat(document.getElementById("liabilityAmount").value);
+                let category = liabilityCategorySelect.value;
+
+                if (category === "custom") {
+                    category = liabilityCategoryCustom.value.trim();
+                    if (!category) {
+                        alert("Please enter a custom category");
+                        return;
+                    }
+                    // Add custom category if it doesn't exist
+                    addCustomCategory("liability", category);
+                }
 
                 if (!description || isNaN(amount) || amount <= 0) {
                     alert("Please enter a valid description and amount");
@@ -1057,13 +1397,14 @@
                     id: Date.now().toString(),
                     description,
                     amount,
+                    category,
                 };
 
                 if (state.editingType === "liability" && state.editingId) {
                     // Update existing liability
                     const index = state.liabilities.findIndex((item) => item.id === state.editingId);
                     if (index !== -1) {
-                        state.liabilities[index] = { ...state.liabilities[index], description, amount };
+                        state.liabilities[index] = { ...state.liabilities[index], description, amount, category };
                     }
                     state.editingId = null;
                     state.editingType = null;
@@ -1078,10 +1419,60 @@
 
                 // Reset form
                 liabilityForm.reset();
+                liabilityCategoryCustom.style.display = "none";
+                liabilityCategoryCustom.required = false;
 
                 // Save and render
                 saveData();
                 renderAll();
+                populateCategorySelectors();
+            }
+
+            // Add custom category
+            function addCustomCategory(type, category) {
+                if (!state.categories[type].includes(category)) {
+                    state.categories[type].push(category);
+                    saveData();
+                    renderCategoryManagement();
+                }
+            }
+
+            // Handle add category button
+            function handleAddCategory() {
+                const type = newCategoryType.value;
+                const name = newCategoryName.value.trim();
+
+                if (!name) {
+                    alert("Please enter a category name");
+                    return;
+                }
+
+                if (state.categories[type].includes(name)) {
+                    alert("This category already exists");
+                    return;
+                }
+
+                state.categories[type].push(name);
+                newCategoryName.value = "";
+
+                saveData();
+                populateCategorySelectors();
+                renderCategoryManagement();
+                alert(`Category "${name}" added to ${type}`);
+            }
+
+            // Delete category
+            function deleteCategory(type, category) {
+                if (!confirm(`Delete category "${category}"? This will NOT delete items in this category.`)) {
+                    return;
+                }
+
+                // Remove from categories array
+                state.categories[type] = state.categories[type].filter((c) => c !== category);
+
+                saveData();
+                populateCategorySelectors();
+                renderCategoryManagement();
             }
 
             // Edit item function
@@ -1095,6 +1486,16 @@
                     document.getElementById("incomeDescription").value = item.description;
                     document.getElementById("incomeAmount").value = item.amount;
 
+                    // Set category
+                    if (state.categories.income.includes(item.category)) {
+                        incomeCategorySelect.value = item.category;
+                        incomeCategoryCustom.style.display = "none";
+                    } else {
+                        incomeCategorySelect.value = "custom";
+                        incomeCategoryCustom.style.display = "block";
+                        incomeCategoryCustom.value = item.category;
+                    }
+
                     const submitBtn = incomeForm.querySelector('button[type="submit"]');
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Income';
 
@@ -1104,6 +1505,16 @@
                     item = state.expenses.find((item) => item.id === id);
                     document.getElementById("expenseDescription").value = item.description;
                     document.getElementById("expenseAmount").value = item.amount;
+
+                    // Set category
+                    if (state.categories.expense.includes(item.category)) {
+                        expenseCategorySelect.value = item.category;
+                        expenseCategoryCustom.style.display = "none";
+                    } else {
+                        expenseCategorySelect.value = "custom";
+                        expenseCategoryCustom.style.display = "block";
+                        expenseCategoryCustom.value = item.category;
+                    }
 
                     const submitBtn = expenseForm.querySelector('button[type="submit"]');
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Expense';
@@ -1115,6 +1526,16 @@
                     document.getElementById("assetDescription").value = item.description;
                     document.getElementById("assetAmount").value = item.amount;
 
+                    // Set category
+                    if (state.categories.asset.includes(item.category)) {
+                        assetCategorySelect.value = item.category;
+                        assetCategoryCustom.style.display = "none";
+                    } else {
+                        assetCategorySelect.value = "custom";
+                        assetCategoryCustom.style.display = "block";
+                        assetCategoryCustom.value = item.category;
+                    }
+
                     const submitBtn = assetForm.querySelector('button[type="submit"]');
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Asset';
 
@@ -1124,6 +1545,16 @@
                     item = state.liabilities.find((item) => item.id === id);
                     document.getElementById("liabilityDescription").value = item.description;
                     document.getElementById("liabilityAmount").value = item.amount;
+
+                    // Set category
+                    if (state.categories.liability.includes(item.category)) {
+                        liabilityCategorySelect.value = item.category;
+                        liabilityCategoryCustom.style.display = "none";
+                    } else {
+                        liabilityCategorySelect.value = "custom";
+                        liabilityCategoryCustom.style.display = "block";
+                        liabilityCategoryCustom.value = item.category;
+                    }
 
                     const submitBtn = liabilityForm.querySelector('button[type="submit"]');
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Liability';
@@ -1159,18 +1590,22 @@
                         const submitBtn = incomeForm.querySelector('button[type="submit"]');
                         submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Income';
                         incomeForm.reset();
+                        incomeCategoryCustom.style.display = "none";
                     } else if (type === "expense") {
                         const submitBtn = expenseForm.querySelector('button[type="submit"]');
                         submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Expense';
                         expenseForm.reset();
+                        expenseCategoryCustom.style.display = "none";
                     } else if (type === "asset") {
                         const submitBtn = assetForm.querySelector('button[type="submit"]');
                         submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Asset';
                         assetForm.reset();
+                        assetCategoryCustom.style.display = "none";
                     } else if (type === "liability") {
                         const submitBtn = liabilityForm.querySelector('button[type="submit"]');
                         submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Liability';
                         liabilityForm.reset();
+                        liabilityCategoryCustom.style.display = "none";
                     }
                 }
 
@@ -1204,50 +1639,7 @@
                 document.getElementById("totalExpenses").textContent = formatCurrency(totalExpenses);
                 document.getElementById("monthlyBalance").textContent = formatCurrency(monthlyBalance);
                 document.getElementById("totalWealth").textContent = formatCurrency(totalWealth);
-
-                // Render recent transactions
-                // renderRecentTransactions();
             }
-
-            // Render recent transactions
-            // function renderRecentTransactions() {
-            //     const container = document.getElementById('recentTransactions');
-
-            //     // Combine income and expenses
-            //     const allTransactions = [
-            //         ...state.income.map(item => ({ ...item, type: 'income' })),
-            //         ...state.expenses.map(item => ({ ...item, type: 'expense' }))
-            //     ];
-
-            //     // Sort by date (newest first)
-            //     allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            //     // Take only the 5 most recent
-            //     const recentTransactions = allTransactions.slice(0, 5);
-
-            //     if (recentTransactions.length === 0) {
-            //         container.className = 'empty-state';
-            //         container.innerHTML = `
-            //             <i class="fas fa-exchange-alt"></i>
-            //             <p>No transactions yet. Add some in the Transactions tab.</p>
-            //         `;
-            //         return;
-            //     }
-
-            //     container.className = '';
-            //     container.innerHTML = '';
-
-            //     recentTransactions.forEach(transaction => {
-            //         const transactionElement = document.createElement('div');
-            //         transactionElement.className = `list-item ${transaction.type}-item`;
-            //         transactionElement.innerHTML = `
-            //             <div class="list-item-description">${transaction.description}</div>
-            //             <div class="list-item-amount">${formatCurrency(transaction.amount)}</div>
-            //             <div class="list-item-meta">${transaction.date} • ${transaction.type === 'income' ? 'Income' : 'Expense'}</div>
-            //         `;
-            //         container.appendChild(transactionElement);
-            //     });
-            // }
 
             // Render income list
             function renderIncomeList() {
@@ -1272,7 +1664,10 @@
                     const itemElement = document.createElement("div");
                     itemElement.className = "list-item income-item";
                     itemElement.innerHTML = `
-                    <div class="list-item-description">${item.description}</div>
+                    <div class="list-item-description">
+                        ${item.description}
+                        <span class="category-badge">${item.category}</span>
+                    </div>
                     <div class="list-item-info">
                         <span class="list-item-amount">${formatCurrency(item.amount)}</span>
                         <div class="list-item-actions">
@@ -1312,7 +1707,10 @@
                     const itemElement = document.createElement("div");
                     itemElement.className = "list-item expense-item";
                     itemElement.innerHTML = `
-                    <div class="list-item-description">${item.description}</div>
+                    <div class="list-item-description">
+                        ${item.description}
+                        <span class="category-badge">${item.category}</span>
+                    </div>
                     <div class="list-item-info">
                         <span class="list-item-amount">${formatCurrency(item.amount)}</span>
                         <div class="list-item-actions">
@@ -1352,7 +1750,10 @@
                     const itemElement = document.createElement("div");
                     itemElement.className = "list-item asset-item";
                     itemElement.innerHTML = `
-                    <div class="list-item-description">${item.description}</div>
+                    <div class="list-item-description">
+                        ${item.description}
+                        <span class="category-badge">${item.category}</span>
+                    </div>
                     <div class="list-item-info">
                         <span class="list-item-amount">${formatCurrency(item.amount)}</span>
                         <div class="list-item-actions">
@@ -1394,7 +1795,10 @@
                     const itemElement = document.createElement("div");
                     itemElement.className = "list-item liability-item";
                     itemElement.innerHTML = `
-                    <div class="list-item-description">${item.description}</div>
+                    <div class="list-item-description">
+                        ${item.description}
+                        <span class="category-badge">${item.category}</span>
+                    </div>
                     <div class="list-item-info">
                         <span class="list-item-amount">${formatCurrency(item.amount)}</span>
                         <div class="list-item-actions">
@@ -1408,6 +1812,49 @@
                     </div>
                 `;
                     container.appendChild(itemElement);
+                });
+            }
+
+            // Render category management
+            function renderCategoryManagement() {
+                categoryLists.innerHTML = "";
+
+                // Create a card for each type
+                Object.keys(state.categories).forEach((type) => {
+                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
+                    const card = document.createElement("div");
+                    card.className = "category-card";
+
+                    let categoriesHtml = "";
+                    if (state.categories[type].length === 0) {
+                        categoriesHtml = '<p style="color: var(--gray-color); font-style: italic;">No categories</p>';
+                    } else {
+                        categoriesHtml = '<ul class="category-list">';
+                        state.categories[type].forEach((category) => {
+                            // Don't allow deletion of "Other" category
+                            const canDelete = category !== "Other";
+                            categoriesHtml += `
+                            <li>
+                                ${category}
+                                ${
+                                    canDelete
+                                        ? `<button class="delete-category-btn" onclick="deleteCategory('${type}', '${category}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>`
+                                        : ""
+                                }
+                            </li>
+                        `;
+                        });
+                        categoriesHtml += "</ul>";
+                    }
+
+                    card.innerHTML = `
+                    <h4>${typeName} Categories</h4>
+                    ${categoriesHtml}
+                `;
+
+                    categoryLists.appendChild(card);
                 });
             }
 
@@ -1427,6 +1874,7 @@
                     expenses: state.expenses,
                     assets: state.assets,
                     liabilities: state.liabilities,
+                    categories: state.categories,
                     lastUpdated: new Date().toISOString(),
                 };
 
@@ -1444,6 +1892,15 @@
                         state.expenses = data.expenses || [];
                         state.assets = data.assets || [];
                         state.liabilities = data.liabilities || [];
+                        // Merge default categories with saved ones
+                        if (data.categories) {
+                            Object.keys(state.categories).forEach((type) => {
+                                const savedCats = data.categories[type] || [];
+                                // Merge and remove duplicates
+                                const merged = [...new Set([...state.categories[type], ...savedCats])];
+                                state.categories[type] = merged;
+                            });
+                        }
                     } catch (error) {
                         console.error("Error loading saved data:", error);
                         // Initialize with empty arrays if there's an error
@@ -1451,6 +1908,7 @@
                         state.expenses = [];
                         state.assets = [];
                         state.liabilities = [];
+                        // Keep default categories
                     }
                 }
             }
@@ -1462,6 +1920,7 @@
                     expenses: state.expenses,
                     assets: state.assets,
                     liabilities: state.liabilities,
+                    categories: state.categories,
                     exportedAt: new Date().toISOString(),
                 };
 
@@ -1509,11 +1968,22 @@
                         state.expenses = data.expenses || [];
                         state.assets = data.assets || [];
                         state.liabilities = data.liabilities || [];
+                        // Update categories, merge with defaults
+                        if (data.categories) {
+                            Object.keys(state.categories).forEach((type) => {
+                                const importedCats = data.categories[type] || [];
+                                // Merge and remove duplicates
+                                const merged = [...new Set([...state.categories[type], ...importedCats])];
+                                state.categories[type] = merged;
+                            });
+                        }
 
                         // Save to localStorage
                         saveData();
 
-                        // Render all data
+                        // Update UI
+                        populateCategorySelectors();
+                        renderCategoryManagement();
                         renderAll();
 
                         alert("Data imported successfully!");
@@ -1541,6 +2011,13 @@
                 state.expenses = [];
                 state.assets = [];
                 state.liabilities = [];
+                // Reset categories to defaults only (keep user-added ones will be removed)
+                state.categories = {
+                    income: ["Salary", "Freelance", "Investment", "Gift", "Business", "Other"],
+                    expense: ["Housing", "Food", "Transportation", "Utilities", "Entertainment", "Healthcare", "Other"],
+                    asset: ["Cash", "Savings Account", "Investment", "Real Estate", "Vehicle", "Other"],
+                    liability: ["Mortgage", "Car Loan", "Credit Card", "Student Loan", "Personal Loan", "Other"],
+                };
                 state.editingId = null;
                 state.editingType = null;
 
@@ -1556,17 +2033,23 @@
                 // Reset form buttons
                 const incomeBtn = incomeForm.querySelector('button[type="submit"]');
                 incomeBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Income';
+                incomeCategoryCustom.style.display = "none";
 
                 const expenseBtn = expenseForm.querySelector('button[type="submit"]');
                 expenseBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Expense';
+                expenseCategoryCustom.style.display = "none";
 
                 const assetBtn = assetForm.querySelector('button[type="submit"]');
                 assetBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Asset';
+                assetCategoryCustom.style.display = "none";
 
                 const liabilityBtn = liabilityForm.querySelector('button[type="submit"]');
                 liabilityBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Liability';
+                liabilityCategoryCustom.style.display = "none";
 
-                // Render all data
+                // Update UI
+                populateCategorySelectors();
+                renderCategoryManagement();
                 renderAll();
 
                 alert("All data has been cleared.");
