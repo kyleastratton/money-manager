@@ -14,7 +14,7 @@
         <!-- Required for iOS to launch standalone -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Lists" />
+        <meta name="apple-mobile-web-app-title" content="Money Manager" />
         <!-- iOS home screen icon -->
         <link rel="apple-touch-icon" href="/your-repo-name/assets/logo.png" />
         <style>
@@ -653,6 +653,11 @@
 
                 <div class="summary-cards">
                     <div class="card">
+                        <h3>Monthly Balance</h3>
+                        <div class="amount balance-amount" id="monthlyBalance">£0.00</div>
+                    </div>
+
+                    <div class="card">
                         <h3>Monthly Income</h3>
                         <div class="amount income-amount" id="totalIncome">£0.00</div>
                     </div>
@@ -660,11 +665,6 @@
                     <div class="card">
                         <h3>Monthly Expenses</h3>
                         <div class="amount expenses-amount" id="totalExpenses">£0.00</div>
-                    </div>
-
-                    <div class="card">
-                        <h3>Monthly Balance</h3>
-                        <div class="amount balance-amount" id="monthlyBalance">£0.00</div>
                     </div>
 
                     <div class="card">
